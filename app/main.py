@@ -36,7 +36,7 @@ app = FastAPI(
 
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=get_settings().allowed_origins, allow_methods=["GET", "POST", "PUT", "DELETE"], allow_headers=["*"], allow_credentials=True)
 
 app.include_router(flow_router, prefix="/v1")
 
